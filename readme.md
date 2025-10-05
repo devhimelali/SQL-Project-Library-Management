@@ -1,15 +1,19 @@
 # 📚 Library Management System
 
-This project is a hands-on implementation of a **Library Management System** using SQL. It focuses on designing a well-structured database and performing real-world data operations. From creating and managing tables to running advanced analytical queries, this project demonstrates strong SQL fundamentals and practical database management skills.
+This project is a hands-on implementation of a **Library Management System** using SQL. It focuses on designing a
+well-structured database and performing real-world data operations. From creating and managing tables to running
+advanced analytical queries, this project demonstrates strong SQL fundamentals and practical database management skills.
 
 ![library_management_system.png](library_management_system.png)
 
 ## 🎯 Project Objectives
 
-* **Database Setup:** Design and build a relational database (`library_management`) with tables for branches, employees, members, books, issue records, and return records.
+* **Database Setup:** Design and build a relational database (`library_management`) with tables for branches, employees,
+  members, books, issue records, and return records.
 * **CRUD Operations:** Implement `CREATE`, `READ`, `UPDATE`, and `DELETE` statements to manage library data efficiently.
 * **CTAS (Create Table As Select):** Use CTAS to generate new tables dynamically from existing data queries.
-* **Advanced SQL Queries:** Write complex queries to extract insights—such as most borrowed books, active members, and branch performance.
+* **Advanced SQL Queries:** Write complex queries to extract insights—such as most borrowed books, active members, and
+  branch performance.
 
 ## 🧩 Skills Demonstrated
 
@@ -18,13 +22,30 @@ This project is a hands-on implementation of a **Library Management System** usi
 * Data manipulation and reporting
 * Real-world query optimization
 
-## Project Structure
+## 🧾 Project Structure
 
 ### 1. Database Setup
+
 ![library_management_erd.png](library_management_erd.png)
 
 * **Database Creation:** Created a database named `library_management`.
-* **Table Creation:** Created tables for `branches`, `employees`, `members`, `books`, `issued_status`, and `return_status`. Each table includes relevant columns and relationships.
+* **Table Creation:** Created tables for `branches`, `employees`, `members`, `books`, `issued_status`, and
+  `return_status`. Each table includes relevant columns and relationships.
+
+#### 🧩 Database Schema
+
+The project includes six main tables:
+
+| Table Name      | Description                                              |
+|-----------------|----------------------------------------------------------|
+| `branch`        | Stores information about each library branch.            |
+| `employees`     | Details of employees and their assigned branches.        |
+| `members`       | Records of library members.                              |
+| `books`         | Stores information about books available in the library. |
+| `issued_status` | Tracks information about books issued to members.        |
+| `return_status` | Tracks books returned by members.                        |
+
+#### 🧾 SQL Snippets
 
 ```sql
 -- ==========================================================
@@ -64,7 +85,7 @@ CREATE TABLE employees
     emp_name  VARCHAR(25),
     position  VARCHAR(15),
     salary    FLOAT,
-    branch_id VARCHAR(10)  -- Foreign key referencing 'branch'
+    branch_id VARCHAR(10) -- Foreign key referencing 'branch'
 );
 
 -- ==========================================================
@@ -104,11 +125,11 @@ DROP TABLE IF EXISTS issued_status;
 CREATE TABLE issued_status
 (
     issued_id        VARCHAR(10) PRIMARY KEY,
-    issued_member_id VARCHAR(10),  -- FK referencing 'members'
+    issued_member_id VARCHAR(10), -- FK referencing 'members'
     issued_book_name VARCHAR(75),
     issued_date      DATE,
-    issued_book_isbn VARCHAR(25),  -- FK referencing 'books'
-    issued_emp_id    VARCHAR(10)   -- FK referencing 'employees'
+    issued_book_isbn VARCHAR(25), -- FK referencing 'books'
+    issued_emp_id    VARCHAR(10)  -- FK referencing 'employees'
 );
 
 -- ==========================================================
@@ -119,7 +140,7 @@ DROP TABLE IF EXISTS return_status;
 CREATE TABLE return_status
 (
     return_id        VARCHAR(10) PRIMARY KEY,
-    issued_id        VARCHAR(10),  -- FK referencing 'issued_status'
+    issued_id        VARCHAR(10), -- FK referencing 'issued_status'
     return_book_name VARCHAR(75),
     return_date      DATE,
     return_book_isbn VARCHAR(25)
