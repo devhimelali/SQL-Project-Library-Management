@@ -156,10 +156,7 @@ VALUES ('IS106', 'C106', 'Animal Farm', '2024-03-10', '978-0-330-25864-8', 'E104
 -- Tracks which issued books have been returned and when
 -- ==========================================================
 INSERT INTO return_status(return_id, issued_id, return_date)
-VALUES ('RS101', 'IS101', '2023-06-06'),
-       ('RS102', 'IS105', '2023-06-07'),
-       ('RS103', 'IS103', '2023-08-07'),
-       ('RS104', 'IS106', '2024-05-01'),
+VALUES ('RS104', 'IS106', '2024-05-01'),
        ('RS105', 'IS107', '2024-05-03'),
        ('RS106', 'IS108', '2024-05-05'),
        ('RS107', 'IS109', '2024-05-07'),
