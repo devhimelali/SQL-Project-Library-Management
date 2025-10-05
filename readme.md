@@ -231,6 +231,95 @@ SELECT issued_member_id,
 FROM issued_status
 GROUP BY issued_member_id
 HAVING COUNT(*) > 1;
+```
 
+### 3. CTAS (Create Table As Select)
+```sql
+-- ==========================================================
+-- Task 6: Create a Summary Table of Book Issue Counts
+-- Objective: Use CTAS (Create Table As Select) to generate a table 
+--             listing each book and the total number of times it was issued
+-- ==========================================================
+CREATE TABLE book_issued_cnt AS
+SELECT b.isbn,
+       b.book_title,
+       COUNT(ist.issued_id) AS issue_count
+FROM issued_status AS ist
+         JOIN books AS b
+              ON ist.issued_book_isbn = b.isbn
+GROUP BY b.isbn, b.book_title;
+```
 
+### 4. Data Analysis & Findings
+The following SQL queries were used to address specific questions:
+
+```sql
+-- ==========================================================
+-- Task 7: Retrieve All Books in a Specific Category
+-- Objective: List all books that belong to the 'Classic' category
+-- ==========================================================
+SELECT *
+FROM books
+WHERE category = 'Classic';
+
+-- ==========================================================
+-- Task 8: Find Total Rental Income by Category
+-- Objective: Calculate total rental income and count of issued books by category
+-- ==========================================================
+SELECT b.category,
+       SUM(b.rental_price) AS total_rental_income,
+       COUNT(*)            AS total_issued_books
+FROM issued_status AS ist
+         JOIN books AS b
+              ON b.isbn = ist.issued_book_isbn
+GROUP BY b.category;
+
+-- ==========================================================
+-- Task 9: List Members Who Registered in the Last 180 Days
+-- Objective: Retrieve all members who registered within the past 180 days
+-- ==========================================================
+SELECT *
+FROM members
+WHERE reg_date >= CURRENT_DATE - INTERVAL 180 DAY;
+
+-- ==========================================================
+-- Task 10: List Employees with Their Branch Manager’s Name and Branch Details
+-- Objective: Show employee details along with their branch info and manager’s name
+-- ==========================================================
+SELECT e1.emp_id,
+       e1.emp_name,
+       e1.position,
+       e1.salary,
+       b.branch_id,
+       b.branch_address,
+       b.contact_no,
+       e2.emp_name AS manager_name
+FROM employees AS e1
+         JOIN branch AS b
+              ON e1.branch_id = b.branch_id
+         JOIN employees AS e2
+              ON e2.emp_id = b.manager_id;
+
+-- ==========================================================
+-- Task 11: Create a Table of Books with Rental Price Above a Threshold
+-- Objective: Create a new table of books with rental_price greater than 7.00
+-- ==========================================================
+CREATE TABLE expensive_books AS
+SELECT *
+FROM books
+WHERE rental_price > 7.00;
+
+-- ==========================================================
+-- Task 12: Retrieve the List of Books Not Yet Returned
+-- Objective: Find books that have been issued but not returned
+-- ==========================================================
+SELECT ist.issued_id,
+       ist.issued_book_name,
+       ist.issued_member_id,
+       ist.issued_date,
+       ist.issued_emp_id
+FROM issued_status AS ist
+         LEFT JOIN return_status AS rs
+                   ON rs.issued_id = ist.issued_id
+WHERE rs.return_id IS NULL;
 ```
