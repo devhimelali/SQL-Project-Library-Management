@@ -38,3 +38,17 @@ SELECT issued_member_id,
 FROM issued_status
 GROUP BY issued_member_id
 HAVING COUNT(*) > 1;
+
+-- ==========================================================
+-- Task 6: Create a Summary Table of Book Issue Counts
+-- Objective: Use CTAS (Create Table As Select) to generate a table
+--             listing each book and the total number of times it was issued
+-- ==========================================================
+CREATE TABLE book_issued_cnt AS
+SELECT b.isbn,
+       b.book_title,
+       COUNT(ist.issued_id) AS issue_count
+FROM issued_status AS ist
+         JOIN books AS b
+              ON ist.issued_book_isbn = b.isbn
+GROUP BY b.isbn, b.book_title;
