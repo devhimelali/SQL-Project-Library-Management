@@ -2,7 +2,7 @@
 
 This project is a hands-on implementation of a **Library Management System** using SQL. It focuses on designing a well-structured database and performing real-world data operations. From creating and managing tables to running advanced analytical queries, this project demonstrates strong SQL fundamentals and practical database management skills.
 
-![library_management_erd.png](library_management_erd.png)
+![library_management_system.png](library_management_system.png)
 
 ## 🎯 Project Objectives
 
